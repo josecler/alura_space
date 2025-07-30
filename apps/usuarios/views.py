@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from usuarios.forms import LoginForms, CadastroForms
+from apps.usuarios.forms import LoginForms, CadastroForms
 
 from django.contrib.auth.models import User
 
@@ -31,7 +31,6 @@ def login(request):
             messages.error(request, "Erro ao efetuar login")
             return redirect('login')     
 
-
     return render(request, "usuarios/login.html", {"form": form})
 
 def cadastro(request):
@@ -40,9 +39,7 @@ def cadastro(request):
     if request.method == 'POST':
         form = CadastroForms(request.POST)
         
-        if form.is_valid():
-            
-            
+        if form.is_valid(): 
             nome=form["nome_cadastro"].value()
             email=form["email"].value()
             senha=form["senha_1"].value()
@@ -59,7 +56,6 @@ def cadastro(request):
             usuario.save()
             messages.success(request, "Cadastro efetuado com sucesso")
             return redirect('login')
-
 
     return render(request, "usuarios/cadastro.html", {"form": form})
 
